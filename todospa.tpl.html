@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link href="static/todospa.css" rel="stylesheet" type="text/css">
+
+    <!-- defer attribute delays execution of script until page finished parsing -->
+    <!-- (element nodes must exist for event listeners to be attached) -->
+    <!-- <script type="text/javascript" src="/static/todospa5.js" defer></script>
+ -->
+</head>
+
+<body>
+    <!--  
+        Below are templates for tasks and task edit forms.
+        Note their style attribute: display:none
+        This keeps the templates from being displayed by the browser.
+        This device can be used to filter the task list locally (in the browser)
+            without accessing the server.
+     -->
+    <!-- template for tasks -->
+    <div id="task-template" style="display: none">
+        <section class="todoitem">
+            <input class="taskid" hidden/>
+            <p class="taskdescription"></p>
+            <input type="date" class="duedate" onchange="handleDueDateChange(this)"/>
+            <p class="postdate"></p>
+            <ul class="itembuttons">
+                <li>
+                    <input type="checkbox" class="status" name=status value="done" />
+                </li>
+                <li>
+                    <input class="editbtn" type="button" value="Edit" />
+                </li>
+                <li>
+                    <input class="deletebtn" type="button" value="Delete" />>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <!-- template for task edits -->
+    <div id="edit-task-template" style="display: none">
+        <section class="todoitem todoForm">
+            <input form="form-" class="taskid" value="" hidden/>
+            <p class="taskdescription">
+                <textarea form="form-" name="taskdescription" placeholder="Please describe your task"></textarea>
+            </p>
+            <input type="date" class="duedate"/>
+            <p class="postdate"></p>
+            <ul class="itembuttons">
+                <li>
+                    <input form="form-" class="status" type="checkbox" name=status value="done" style="display: none;"/>
+                </li>
+                <li>
+                    <input form="form-" class="editbtn" type="submit" value="Save" />
+                </li>
+                <li>
+                    <input         class="deletebtn" type="button" value="Cancel" />>
+                </li>
+            </ul>
+            <!-- for each copy of this template, the form will receive a unique id
+                 of the shape "form-{formCount}" where formCount is a member of 
+                 the docElems object (see top of todospa.js)
+                 The form attribute of the input elements and the text area 
+                 in this <section> needs to be set to the same value.
+            -->
+            <form id="form-" ></form>
+        </section>
+    </div>
+
+
+    <div id="container">
+        <header>
+            <div id="todotitle">
+                <div id="muchtodo">
+                    <h1>So Much To Do</h1>
+                </div>
+                <div id="littletime">
+                    <h6>So Little Time</h6>
+                </div>
+            </div>
+        </header>
+
+        <aside class="sidebar-left">
+            <h2>Bonus Features</h2>
+            <p>Post Date and Due Date</p>
+            <p>Update Due Date Individually (registers SQL errors in the console, but functions correctly otherwise)</p>
+            <p>Sorting Todo List by Date</p>
+        </aside>
+
+        <div id="center">
+        <h2>&nbsp Task &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp Due Date &nbsp &nbsp Post Date</h2>
+        <article id="newlist">
+            <!-- holds new tasks while being edited -->
+        </article>
+    
+        <article id="todolist">
+            <!-- created after todo list is loaded by createTodoList() -->
+        </article>
+        </div>
+
+        <aside class="sidebar-right">
+            <div class="controls">
+                
+                <section class="control">
+                    <input class="controlbtn" type="button" value="New task" />
+                </section>
+
+                <section class="control">
+            
+                    <form id="filterform" action="" method=""></form>
+                        <fieldset>
+                            <legend>Tasks</legend>
+                            <div class='option'><input type="radio" name="filter" value="all" checked/>all</div>
+                            <div class='option'><input type="radio" name="filter" value="done"/>done</div>
+                            <div class='option'><input type="radio" name="filter" value="tbd" />tbd</div>
+                        </fieldset>
+                        <input class="controlbtn" type="button" value="Filter" />
+                    </form>
+                    
+                    <form>
+                        <fieldset>
+                            <legend>Sort By</legend>
+                            <select onchange="sort(this.value)" style="width: 100%; font-size: 6.5px;">
+                                <option value="none" selected>No Sort</option>
+                                <option value="dd,Asc">Due Date, Ascending</option>
+                                <option value="dd,Desc">Due Date, Descending</option>
+                                <option value="pd,Asc">Post Date, Ascending</option>
+                                <option value="pd,Desc">Post Date, Descending</option>
+                            </select>
+                        </fieldset>
+                    </form>
+                </section>
+            </div>
+        </aside>
+
+        <footer>
+            <div><p>some stuff here <br/><br/>and some more stufff</p></div>
+        </footer>
+    </div> <!--  end container -->''
+    <script type="text/javascript" src="/static/todospa.js"></script>
+</body>
+
+</html>
